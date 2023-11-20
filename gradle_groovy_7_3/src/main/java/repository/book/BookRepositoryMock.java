@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class BookRepoMock implements BookRepository {
+public class BookRepositoryMock implements BookRepository {
 
     private final List<Book> books;
 
-    public BookRepoMock() {
+    public BookRepositoryMock() {
         books = new ArrayList<>();
     }
 

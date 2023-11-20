@@ -48,6 +48,6 @@ public class Book {
 
     @Override
     public String toString() {
-        return String.format("Book author: %s | title: %s | published date: %s", author, title, publishedDate);
+        return String.format("ID: %d | Book author: %s | title: %s | published date: %s", this.id, this.author, this.title, this.publishedDate);
     }
 }

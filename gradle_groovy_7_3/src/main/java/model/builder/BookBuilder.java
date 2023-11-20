@@ -5,15 +5,13 @@ import model.Book;
 import java.time.LocalDate;
 import java.util.Date;
 
+// folosim builder uri pt ca ajuta cand am mai mult de 3-4 parametri
+
 public class BookBuilder {
     private Book book;
     public BookBuilder() {
         book = new Book(); // design pattern creational care se ocupa cu crearea obiectelor deci pot face asta
     }
-
-    /**
-     * Returnez this pt ca
-     * */
 
     public BookBuilder setId(Long id) {
         book.setId(id);

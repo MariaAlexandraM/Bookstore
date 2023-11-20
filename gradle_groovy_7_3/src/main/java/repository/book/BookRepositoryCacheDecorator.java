@@ -27,7 +27,15 @@ public class BookRepositoryCacheDecorator extends BookRepositoryDecorator{
 
     @Override
     public Optional<Book> findById(Long id) {
-        return decoratedRepository.findById(id); // posibil sa fie gresit
+
+        if (cache.hasResult()){
+            return cache.load()
+                    .stream()
+                    .filter(it -> it.getId().equals(id))
+                    .findFirst();
+        }
+
+        return decoratedRepository.findById(id);
     }
 
     @Override
