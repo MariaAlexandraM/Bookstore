@@ -81,9 +81,9 @@ public class Main {
 
         AuthenticationService authenticationService = new AuthenticationServiceMySQL(userRepository, rightsRolesRepository);
 
-        authenticationService.register("maria", "a1.b2.c3");
+        //authenticationService.register("maria", "a1.b2.c3");
 
-        System.out.println(authenticationService.login("maria", "a1.b2.c3"));
+        //System.out.println(authenticationService.login("maria", "a1.b2.c3"));
     }
 }
 
