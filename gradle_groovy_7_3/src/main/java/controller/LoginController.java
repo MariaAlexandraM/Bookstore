@@ -11,9 +11,14 @@ import view.LoginView;
 import java.util.EventListener;
 import java.util.List;
 
+
+// controleaza abs toata aplicatia
+// specific mvc, pt fiecare view sa am controller dedicat
 public class LoginController {
 
     private final LoginView loginView;
+
+    // mereu service uri, nu repo! its all abt layers bby. ca shrek.
     private final AuthenticationService authenticationService;
 
 
@@ -34,10 +39,10 @@ public class LoginController {
 
             Notification<User> loginNotification = authenticationService.login(username, password);
 
-            if (loginNotification.hasErrors()){
+            if (loginNotification.hasErrors()) {
                 loginView.setActionTargetText(loginNotification.getFormattedErrors());
-            }else{
-                loginView.setActionTargetText("LogIn Successfull!");
+            } else {
+                loginView.setActionTargetText("Login successful!");
             }
 
         }
@@ -60,3 +65,4 @@ public class LoginController {
         }
     }
 }
+

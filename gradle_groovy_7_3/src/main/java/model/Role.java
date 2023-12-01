@@ -2,6 +2,8 @@ package model;
 
 import java.util.*;
 
+// am fi putut face builder, da pt ca il folosim destul de restrictiv (tabelu de Roluri),
+// ramane asa, fara builder. ramane builder doar la user
 public class Role {
     private Long id;
     private String role;

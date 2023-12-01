@@ -21,6 +21,7 @@ public class RightsRolesRepositoryMySQL implements RightsRolesRepository {
 
     private final Connection connection;
 
+    // injectam conexiunea de care avem nevoie
     public RightsRolesRepositoryMySQL(Connection connection) {
         this.connection = connection;
     }

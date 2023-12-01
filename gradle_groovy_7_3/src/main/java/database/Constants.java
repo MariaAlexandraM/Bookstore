@@ -20,7 +20,8 @@ import static database.Constants.Roles.EMPLOYEE;
 import static database.Constants.Roles.ROLES;
 public class Constants {
 
-    public static Map<String, List<String>> getRolesRights() {
+
+    public static Map<String, List<String>> getRolesRights() { // returneaza un map; fiecare rol are o lista asociata de drepturi
         Map<String, List<String>> rolesRights = new HashMap<>();
         for (String role : ROLES) {
             rolesRights.put(role, new ArrayList<>());
@@ -37,7 +38,6 @@ public class Constants {
     public static class Schemas {
         public static final String TEST = "test_library";
         public static final String PRODUCTION = "library";
-
         public static final String[] SCHEMAS = new String[]{TEST, PRODUCTION};
     }
 
@@ -50,7 +50,7 @@ public class Constants {
         public static final String USER_ROLE = "user_role";
 
         public static final String[] ORDERED_TABLES_FOR_CREATION = new String[]{USER, ROLE, RIGHT, ROLE_RIGHT, USER_ROLE,
-                BOOK};
+                BOOK}; // lista cu ordinea tabelelor pt creare
     }
 
     public static class Roles {
@@ -61,7 +61,7 @@ public class Constants {
         public static final String[] ROLES = new String[]{ADMINISTRATOR, EMPLOYEE, CUSTOMER};
     }
 
-    public static class Rights {
+    public static class Rights { // CRUD pe user si books
         public static final String CREATE_USER = "create_user";
         public static final String DELETE_USER = "delete_user";
         public static final String UPDATE_USER = "update_user";

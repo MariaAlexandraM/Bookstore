@@ -2,7 +2,8 @@ package model;
 
 import java.util.*;
 
-// BEAN
+// singurul care respecta regula de a fi un BEAN:
+// nu are constructor cu arguente, doar pe cel default
 
 public class User {
 

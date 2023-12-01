@@ -2,7 +2,6 @@ package service.book;
 
 import model.Book;
 import repository.book.BookRepository;
-import repository.book.BookRepositoryMySQL;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
