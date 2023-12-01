@@ -1,23 +1,18 @@
 package model;
 
-// Java Bean -
-
-// POJO - Plain Old Java Object
-
-
 import java.time.LocalDate;
 import java.util.Date;
 
-public class Book{
+/**
+ * Java Bean.
+ * POJO - Plain Old Java Object
+ * */
 
+public class Book {
     private Long id;
-
     private String author;
-
     private String title;
-
     private LocalDate publishedDate;
-
 
     public Long getId() {
         return id;
@@ -52,7 +47,7 @@ public class Book{
     }
 
     @Override
-    public String toString(){
-        return String.format("Id: %d | Title: %s | Author: %s | Date: %s", this.id, this.title, this.author, this.publishedDate);
+    public String toString() {
+        return String.format("Book author: %s | title: %s | published date: %s", author, title, publishedDate);
     }
 }

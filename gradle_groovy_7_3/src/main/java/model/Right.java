@@ -1,5 +1,9 @@
 package model;
 
+// POJO - plain old java object, clasa care nu implementeaza nicio interfata,
+// nu extinde nicio alta clasa, nu are nicio functionalitate specialitate,
+// doar gettere settere si constructor.
+// avem doar 2 param in constructor deci nu avem nevoie de builder
 public class Right {
 
     private Long id;

@@ -1,14 +1,15 @@
 package database;
 
 public class DatabaseConnectionFactory {
-    private static final String SCHEMA = "library";
     private static final String TEST_SCHEMA = "test_library";
+    private static final String SCHEMA = "library";
 
-    public static JDBConnectionWrapper getConnectionWrapper(boolean test){
-        if(test){
+    public static JDBConnectionWrapper getConnectionWrapper(boolean test) {
+        if(test) { // daca ii de test, return test schema
             return new JDBConnectionWrapper(TEST_SCHEMA);
-        }else{
+        } else {
             return new JDBConnectionWrapper(SCHEMA);
         }
     }
+
 }

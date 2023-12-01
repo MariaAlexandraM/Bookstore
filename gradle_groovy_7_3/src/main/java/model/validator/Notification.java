@@ -1,21 +1,23 @@
 package model.validator;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Notification<T>{
-    private T result;
-    private final List<String> errors;
-
-    public Notification(){
+// notification pattern inglobeaza rezultatul pe care noi il cautam
+// ex: in findByUser -> user, returneaza useru, dar pot returna si o lista de erori sau potentiale warning-uri din aplicatie
+public class Notification<T> { // functioneaza si cu useri, si cu carti, deci ii generic
+    private T result; // ce returneaza functia, ce cautam de fapt
+    private final List<String> errors; // toate potentialele erori din procesarea obiectului meu
+    public Notification() {
         this.errors = new ArrayList<>();
     }
 
-    public void addError(String error){
+    public void addError(String error) {
         this.errors.add(error);
     }
 
-    public boolean hasErrors(){
-        return !this.errors.isEmpty();
+    public boolean hasErrors() {
+        return !(this.errors.isEmpty());
     }
 
     public void setResult(T result) {
@@ -29,7 +31,8 @@ public class Notification<T>{
         return result;
     }
 
-    public String getFormattedErrors(){
+    public String getFormattedErrors() {
         return String.join("\n", errors);
     }
+
 }

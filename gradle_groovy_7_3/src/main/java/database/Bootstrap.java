@@ -15,7 +15,12 @@ import static database.Constants.Roles.ROLES;
 import static database.Constants.Schemas.SCHEMAS;
 import static database.Constants.getRolesRights;
 
-// Script - code that automates some steps or processes
+
+// Bootstrap - acei pasi necesari pe care trb neaparat sa-i facem inainte de prima rulare a aplicatiei
+// noua ne trebe o serie de tabele si de baze de date pe care sa le avem disponibile cand rulam aplicatia.
+// clasa asta isi creeaza tabelele, si ne folosim de Repository
+
+// Script - cod care automatizeaza mai multi pasi specifici, care trb executati repetitiv
 
 public class Bootstrap {
 
@@ -37,9 +42,9 @@ public class Bootstrap {
             Statement statement = connection.createStatement();
 
             String[] dropStatements = {
-                    "TRUNCATE `role_right`;",
-                    "DROP TABLE `role_right`;",
-                    "TRUNCATE `right`;",
+                    "TRUNCATE `role_right`;", // sterge tot continutu tabelei
+                    "DROP TABLE `role_right`;", // sterge efectiv tabelu din baza de date
+                    "TRUNCATE `right`;", // stergem basically in ordinea inversa creari, ca sa nu avem erori (Deci sterg tabelele de legatura prima data)
                     "DROP TABLE `right`;",
                     "TRUNCATE `user_role`;",
                     "DROP TABLE `user_role`;",
@@ -59,7 +64,7 @@ public class Bootstrap {
         System.out.println("Done table bootstrap");
     }
 
-    private static void bootstrapTables() throws SQLException {
+    private static void bootstrapTables() throws SQLException { // practic creeaza tabelele
         SQLTableCreationFactory sqlTableCreationFactory = new SQLTableCreationFactory();
 
         for (String schema : SCHEMAS) {
@@ -80,7 +85,7 @@ public class Bootstrap {
         System.out.println("Done table bootstrap");
     }
 
-    private static void bootstrapUserData() throws SQLException {
+    private static void bootstrapUserData() throws SQLException { // populeaza tabelele
         for (String schema : SCHEMAS) {
             System.out.println("Bootstrapping user data for " + schema);
 
@@ -94,6 +99,7 @@ public class Bootstrap {
         }
     }
 
+    // populeaza tabelele de legatura, in ordinea asta a rioritatilor
     private static void bootstrapRoles() throws SQLException {
         for (String role : ROLES) {
             rightsRolesRepository.addRole(role);
@@ -120,6 +126,7 @@ public class Bootstrap {
         }
     }
 
+    // daca vreau sa pun niste users default, pt testare
     private static void bootstrapUserRoles() throws SQLException {
 
     }

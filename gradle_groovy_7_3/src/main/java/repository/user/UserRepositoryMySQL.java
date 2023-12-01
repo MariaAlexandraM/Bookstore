@@ -26,6 +26,7 @@ public class UserRepositoryMySQL implements UserRepository {
     }
 
     @Override
+    // TODO
     public List<User> findAll() {
         return null;
     }
@@ -43,10 +44,9 @@ public class UserRepositoryMySQL implements UserRepository {
             Statement statement = connection.createStatement();
 
             String fetchUserSql =
-                    "Select * from `" + USER + "` where `username`=\'" + username + "\' and `password`=\'" + password + "\'";
+                    "select * from `" + USER + "` where `username` = \'" + username + "\' and `password` = \'" + password + "\'";
             ResultSet userResultSet = statement.executeQuery(fetchUserSql);
-            if (userResultSet.next())
-            {
+            if (userResultSet.next()) {
                 User user = new UserBuilder()
                         .setUsername(userResultSet.getString("username"))
                         .setPassword(userResultSet.getString("password"))
@@ -55,13 +55,13 @@ public class UserRepositoryMySQL implements UserRepository {
 
                 findByUsernameAndPasswordNotification.setResult(user);
             } else {
-                findByUsernameAndPasswordNotification.addError("Invalid username or password!");
+                findByUsernameAndPasswordNotification.addError("Invalid username or password");
                 return findByUsernameAndPasswordNotification;
             }
 
         } catch (SQLException e) {
-            System.out.println(e.toString());
-            findByUsernameAndPasswordNotification.addError("Something is wrong with the Database!");
+            e.printStackTrace();
+            findByUsernameAndPasswordNotification.addError("Something is wrong with the database");
         }
 
         return findByUsernameAndPasswordNotification;
@@ -71,7 +71,7 @@ public class UserRepositoryMySQL implements UserRepository {
     public boolean save(User user) {
         try {
             PreparedStatement insertUserStatement = connection
-                    .prepareStatement("INSERT INTO user values (null, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                    .prepareStatement("insert into user values (null, ?, ?)", Statement.RETURN_GENERATED_KEYS); // odata ce se creeaza cu succes un user, ne returneaza si folosim mai jos id-u acestui user
             insertUserStatement.setString(1, user.getUsername());
             insertUserStatement.setString(2, user.getPassword());
             insertUserStatement.executeUpdate();
@@ -81,6 +81,7 @@ public class UserRepositoryMySQL implements UserRepository {
             long userId = rs.getLong(1);
             user.setId(userId);
 
+            // cu id-u asta ii atribuim rolurile
             rightsRolesRepository.addRolesToUser(user, user.getRoles());
 
             return true;
@@ -95,7 +96,7 @@ public class UserRepositoryMySQL implements UserRepository {
     public void removeAll() {
         try {
             Statement statement = connection.createStatement();
-            String sql = "DELETE from user where id >= 0";
+            String sql = "delete from user where id >= 0";
             statement.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -108,7 +109,7 @@ public class UserRepositoryMySQL implements UserRepository {
             Statement statement = connection.createStatement();
 
             String fetchUserSql =
-                    "Select * from `" + USER + "` where `username`=\'" + email + "\'";
+                    "select * from `" + USER + "` where `username` = \'" + email + "\'";
             ResultSet userResultSet = statement.executeQuery(fetchUserSql);
             return userResultSet.next();
 

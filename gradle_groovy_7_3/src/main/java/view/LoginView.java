@@ -56,7 +56,7 @@ public class LoginView {
     }
 
     private void initializeFields(GridPane gridPane){
-        Label userName = new Label("User Name:");
+        Label userName = new Label("Username");
         gridPane.add(userName, 0, 1);
 
         userTextField = new TextField();
@@ -68,18 +68,20 @@ public class LoginView {
         passwordField = new PasswordField();
         gridPane.add(passwordField, 1, 2);
 
-        signInButton = new Button("Sign In");
+        signInButton = new Button("Sign in");
+        // da o dimensiune prestabilita pt buron, hboxu
         HBox signInButtonHBox = new HBox(10);
         signInButtonHBox.setAlignment(Pos.BOTTOM_RIGHT);
         signInButtonHBox.getChildren().add(signInButton);
         gridPane.add(signInButtonHBox, 1, 4);
 
-        logInButton = new Button("Log In");
+        logInButton = new Button("Log in");
         HBox logInButtonHBox = new HBox(10);
         logInButtonHBox.setAlignment(Pos.BOTTOM_LEFT);
         logInButtonHBox.getChildren().add(logInButton);
         gridPane.add(logInButtonHBox, 0, 4);
 
+        // textfield cu mesajele mele gen daca cv ii invalid sau daca loginu ii successful
         actiontarget = new Text();
         actiontarget.setFill(Color.FIREBRICK);
         gridPane.add(actiontarget, 1, 6);
@@ -95,6 +97,8 @@ public class LoginView {
 
     public void setActionTargetText(String text){ this.actiontarget.setText(text);}
 
+    // design pattern OBSERVER aici
+    // listenerii se fac in controller
     public void addLoginButtonListener(EventHandler<ActionEvent> loginButtonListener) {
         logInButton.setOnAction(loginButtonListener);
     }

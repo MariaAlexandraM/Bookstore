@@ -34,23 +34,9 @@ public class BookRepositoryMySQL implements BookRepository{
     @Override
     public Optional<Book> findById(Long id) {
         String sql = "select * from book where id = ?";
-        Optional<Book> book = Optional.empty();
 
-        try{
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, id);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()){
-                book = Optional.of(getBookFromResultSet(resultSet));
-            }
-
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-
-        return book;
+        return Optional.empty();
     }
 
     @Override
@@ -61,36 +47,21 @@ public class BookRepositoryMySQL implements BookRepository{
         // SQL injection!
         //ptrpSt se asigura ca seteaza tipu corect gen int, exemplu ala cu titlu lao carte sa fie "); drop table; --"
 
-        // ALWAYS use PreparedStatement when USER INPUT DATA is present
-        // DON'T CONCATENATE Strings!
-
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, book.getAuthor()); // imi pune la primu arametru autoru
             preparedStatement.setString(2, book.getTitle());
             //preparedStatement.setDate(3, String.valueOf(Date.valueOf(book.getPublishedDate())));
-            preparedStatement.setDate(3, java.sql.Date.valueOf(book.getPublishedDate()));
-
-            int rowsInserted = preparedStatement.executeUpdate();
-            return rowsInserted == 1;
-
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
 
+        return false;
     }
 
     @Override
     public void removeAll() {
-        String sql = "delete from book where id >= 0;";
 
-        try {
-            Statement statement = connection.createStatement();
-            statement.executeUpdate(sql);
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
     }
 
     private Book getBookFromResultSet(ResultSet resultSet) throws SQLException {

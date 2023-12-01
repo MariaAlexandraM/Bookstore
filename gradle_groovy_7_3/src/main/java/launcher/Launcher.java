@@ -4,13 +4,13 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class Launcher extends Application {
-    public static void main(String[] args){
-        launch(args);
+    public static void main(String[] args) {
+        launch(args); // astao sa apeleze ulterior Start
     }
 
-    // Iterative Programming
+    //
     @Override
     public void start(Stage primaryStage) throws Exception {
-        ComponentFactory componentFactory = ComponentFactory.getInstance(false, primaryStage);
+        ComponentFactory componentFactory = ComponentFactory.getInstance(false, primaryStage); // false = nu lucrez cu baza de test
     }
 }
