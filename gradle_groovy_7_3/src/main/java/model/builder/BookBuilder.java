@@ -11,9 +11,6 @@ public class BookBuilder {
         book = new Book(); // design pattern creational care se ocupa cu crearea obiectelor deci pot face asta
     }
 
-    /**
-     * Returnez this pt ca
-     * */
 
     public BookBuilder setId(Long id) {
         book.setId(id);

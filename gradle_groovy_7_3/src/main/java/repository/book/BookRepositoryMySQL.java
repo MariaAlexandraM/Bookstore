@@ -31,13 +31,24 @@ public class BookRepositoryMySQL implements BookRepository{
         return books;
     }
 
-    @Override
+    // TODO
     public Optional<Book> findById(Long id) {
         String sql = "select * from book where id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, id);
 
+            ResultSet resultSet = preparedStatement.executeQuery();
 
+            if (resultSet.next()) {
+                return Optional.of(getBookFromResultSet(resultSet));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return Optional.empty();
     }
+
 
     @Override
     public boolean save(Book book) {
@@ -51,7 +62,7 @@ public class BookRepositoryMySQL implements BookRepository{
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, book.getAuthor()); // imi pune la primu arametru autoru
             preparedStatement.setString(2, book.getTitle());
-            //preparedStatement.setDate(3, String.valueOf(Date.valueOf(book.getPublishedDate())));
+            preparedStatement.setDate(3, java.sql.Date.valueOf(book.getPublishedDate()));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -59,9 +70,17 @@ public class BookRepositoryMySQL implements BookRepository{
         return false;
     }
 
+
+    // TODO Done?
     @Override
     public void removeAll() {
-
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "delete from book where id >= 0";
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private Book getBookFromResultSet(ResultSet resultSet) throws SQLException {

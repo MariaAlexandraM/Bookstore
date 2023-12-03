@@ -95,7 +95,9 @@ public class LoginView {
         return passwordField.getText();
     }
 
-    public void setActionTargetText(String text){ this.actiontarget.setText(text);}
+    public void setActionTargetText(String text) {
+        this.actiontarget.setText(text);
+    }
 
     // design pattern OBSERVER aici
     // listenerii se fac in controller

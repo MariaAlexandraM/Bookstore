@@ -27,4 +27,5 @@ test {
 }
 
 //mainClassName = 'Main'
-mainClassName = 'launcher.Launcher'
+//mainClassName = 'launcher.Launcher'
+mainClassName = 'view.BookView'

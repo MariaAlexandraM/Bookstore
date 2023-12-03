@@ -27,7 +27,7 @@ public class BookRepositoryCacheDecorator extends BookRepositoryDecorator{
 
     @Override
     public Optional<Book> findById(Long id) {
-        return decoratedRepository.findById(id); // posibil sa fie gresit
+        return decoratedRepository.findById(id); // posibil sa fie gresit // TODO
     }
 
     @Override

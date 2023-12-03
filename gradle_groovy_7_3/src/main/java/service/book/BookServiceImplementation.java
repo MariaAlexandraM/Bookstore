@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-public class BookServiceImplementation implements BookService{
+public class BookServiceImplementation implements BookService {
 
     private final BookRepository bookRepository;
 
@@ -23,7 +23,7 @@ public class BookServiceImplementation implements BookService{
     @Override
     public Book findById(Long id) {
         return bookRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Book w id %d not found".formatted(id)));
+                .orElseThrow(() -> new IllegalArgumentException("Book with id = %d was not found".formatted(id)));
     }
 
     @Override

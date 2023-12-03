@@ -4,12 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import model.User;
 import model.validator.Notification;
-import model.validator.UserValidator;
 import service.user.AuthenticationService;
 import view.LoginView;
-
-import java.util.EventListener;
-import java.util.List;
 
 
 // controleaza abs toata aplicatia
@@ -30,6 +26,7 @@ public class LoginController {
         this.loginView.addRegisterButtonListener(new RegisterButtonListener());
     }
 
+    // TODO
     private class LoginButtonListener implements EventHandler<ActionEvent> {
 
         @Override
@@ -43,8 +40,9 @@ public class LoginController {
                 loginView.setActionTargetText(loginNotification.getFormattedErrors());
             } else {
                 loginView.setActionTargetText("Login successful!");
+                // TODO
+                // acuma aici vreau sa deschid a new window cu functionalitati in functie de user role
             }
-
         }
     }
 
@@ -60,7 +58,7 @@ public class LoginController {
             if (registerNotification.hasErrors()) {
                 loginView.setActionTargetText(registerNotification.getFormattedErrors());
             } else {
-                loginView.setActionTargetText("Register successful!");
+                loginView.setActionTargetText("Register successful!\nYou need to log in to continue.");
             }
         }
     }

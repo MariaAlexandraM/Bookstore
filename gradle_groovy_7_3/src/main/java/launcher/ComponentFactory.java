@@ -3,6 +3,7 @@ package launcher;
 import controller.LoginController;
 import database.DatabaseConnectionFactory;
 import javafx.stage.Stage;
+import repository.book.BookRepository;
 import repository.book.BookRepositoryMySQL;
 import repository.security.RightsRolesRepository;
 import repository.security.RightsRolesRepositoryMySQL;
@@ -20,14 +21,17 @@ public class ComponentFactory {
     private final AuthenticationService authenticationService;
     private final UserRepository userRepository;
     private final RightsRolesRepository rightsRolesRepository;
-    private final BookRepositoryMySQL bookRepository; // !!!!! trb schimbat in interfata (1:52:40)
-    private static ComponentFactory instance;
+    private final BookRepository bookRepository; // !!!!! trb schimbat in interfata (1:52:40) // TODO Done
+    private static volatile ComponentFactory instance; // tp tema 2
 
     public static ComponentFactory getInstance(Boolean componentsForTests, Stage stage) { // trb sa il protejam altfel, singleton u asta, sa fie thread safe
         if (instance == null) {
-            instance = new ComponentFactory(componentsForTests, stage);
+            synchronized (ComponentFactory.class) {
+                if (instance == null) {
+                    instance = new ComponentFactory(componentsForTests, stage);
+                }
+            }
         }
-
         return instance;
     }
 
@@ -38,7 +42,7 @@ public class ComponentFactory {
         this.authenticationService = new AuthenticationServiceImplementation(userRepository, rightsRolesRepository);
         this.loginView = new LoginView(stage);
         this.loginController = new LoginController(loginView, authenticationService);
-        this.bookRepository = new BookRepositoryMySQL(connection); // trb un book service, nu am voie sa apelez repo-u direct
+        this.bookRepository = new BookRepositoryMySQL(connection); // trb un book service, nu am voie sa apelez repo-u direct // TODO
     }
 
     public AuthenticationService getAuthenticationService() {
@@ -57,7 +61,7 @@ public class ComponentFactory {
         return loginView;
     }
 
-    public BookRepositoryMySQL getBookRepository() {
+    public BookRepository getBookRepository() {
         return bookRepository;
     }
 

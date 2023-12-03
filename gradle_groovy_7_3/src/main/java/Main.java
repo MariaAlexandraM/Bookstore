@@ -19,6 +19,7 @@ import view.LoginView;
 
 import java.sql.Connection;
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static database.Constants.Schemas.PRODUCTION;
 
@@ -66,5 +67,15 @@ public class Main {// extends Application {
             //System.out.println(authenticationService.login("maria", "Parola1234!"));
 
         }
+
+        Optional<Book> optionalBook = bookRepository.findById(1L);
+
+        if (optionalBook.isEmpty()) {
+            System.out.println("Book not found");
+        } else {
+            Book book = optionalBook.get();
+            System.out.println("Book found: " + book.getTitle());
+        }
+
     }
 }
