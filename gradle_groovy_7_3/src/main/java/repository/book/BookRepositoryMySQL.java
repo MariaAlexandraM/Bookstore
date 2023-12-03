@@ -52,7 +52,7 @@ public class BookRepositoryMySQL implements BookRepository{
 
     @Override
     public boolean save(Book book) {
-        String sql = "insert into book values (null, ?, ?, ?);"; // null pt ca baza de date imi completeaza, si ? pt ca o sa completam noi dupa
+        String sql = "insert into book values (null, ?, ?, ?, ?, ?);"; // null pt ca baza de date imi completeaza, si ? pt ca o sa completam noi dupa
 
         // de ce despart asa si fac preparedStatement si nu cu Statement direct si scriu gen "insert..." + "values(" + book.getAuthor etc
         // SQL injection!
@@ -63,6 +63,8 @@ public class BookRepositoryMySQL implements BookRepository{
             preparedStatement.setString(1, book.getAuthor()); // imi pune la primu arametru autoru
             preparedStatement.setString(2, book.getTitle());
             preparedStatement.setDate(3, java.sql.Date.valueOf(book.getPublishedDate()));
+            preparedStatement.setInt(4, book.getStock());
+            preparedStatement.setFloat(5, book.getPrice());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -89,6 +91,8 @@ public class BookRepositoryMySQL implements BookRepository{
                 .setAuthor(resultSet.getString("author"))
                 .setTitle(resultSet.getString("title"))
                 .setPublishedDate(new java.sql.Date(resultSet.getDate("publishedDate").getTime()).toLocalDate())
+                .setStock(resultSet.getInt("stock"))
+                .setPrice(resultSet.getFloat("price"))
                 .build();
     }
 }
