@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import model.User;
 import model.validator.Notification;
 import service.user.AuthenticationService;
+import view.AdminView;
 import view.LoginView;
 
 
@@ -42,6 +43,9 @@ public class LoginController {
                 loginView.setActionTargetText("Login successful!");
                 // TODO
                 // acuma aici vreau sa deschid a new window cu functionalitati in functie de user role
+                AdminView adminView = new AdminView(); //loginView.getStage()
+                AdminController adminController = new AdminController(adminView, authenticationService);
+                //adminView.show();
             }
         }
     }

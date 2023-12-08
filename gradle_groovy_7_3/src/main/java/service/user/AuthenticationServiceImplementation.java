@@ -27,7 +27,7 @@ public class AuthenticationServiceImplementation implements AuthenticationServic
     @Override
     public Notification<Boolean> register(String username, String password) {
 
-        Role customerRole = rightsRolesRepository.findRoleByTitle(CUSTOMER);
+        Role customerRole = rightsRolesRepository.findRoleByTitle(CUSTOMER); // contu default facut de aici ii cu drepturi de customer
 
         User user = new UserBuilder()
                 .setUsername(username)
