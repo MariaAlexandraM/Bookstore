@@ -12,5 +12,5 @@ public interface BookRepository {
     boolean save(Book book);
     void removeAll();
     boolean updateBook(Book book);
-    void decreaseQty(Book book, int quantity);
+    String decreaseQty(Book book, int quantity);
 }

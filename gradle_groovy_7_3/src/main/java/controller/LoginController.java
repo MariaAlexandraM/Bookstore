@@ -76,7 +76,8 @@ public class LoginController {
 
                     case CUSTOMER:
                         System.out.println("Customer logged in!");
-                        CustomerView customerView = new CustomerView();
+                        String user_name = user.getUsername();
+                        CustomerView customerView = new CustomerView(user_name);
                         CustomerController customerController = new CustomerController(customerView, authenticationService, bookService);
 
                         //BooksView booksView = new BooksView(bookService);

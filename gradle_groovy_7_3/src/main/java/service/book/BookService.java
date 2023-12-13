@@ -12,7 +12,7 @@ public interface BookService {
     int getAgeOfBook(Long id);
     void removeAll();
     boolean updateBook(Book book);
-    void decreaseQty(Book book, int quantity);
+    String decreaseQty(Book book, int quantity);
 
 
 }

@@ -49,7 +49,7 @@ public class BookServiceImplementation implements BookService {
     }
 
     @Override
-    public void decreaseQty(Book book, int quantity) {
-        bookRepository.decreaseQty(book, quantity);
+    public String decreaseQty(Book book, int quantity) {
+        return bookRepository.decreaseQty(book, quantity);
     }
 }

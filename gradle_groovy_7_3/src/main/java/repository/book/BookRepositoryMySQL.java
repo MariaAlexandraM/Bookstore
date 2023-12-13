@@ -107,21 +107,23 @@ public class BookRepositoryMySQL implements BookRepository{
     }
 
     @Override
-    public void decreaseQty(Book book, int quantity) {
+    public String decreaseQty(Book book, int quantity) {
         if (book.getStock() >= quantity) {
-            // Sufficient stock, proceed with the purchase
             String sql = "update book set stock = stock - ? where id = ?";
             try {
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setInt(1, quantity);
                 preparedStatement.setLong(2, book.getId());
                 preparedStatement.executeUpdate();
+
+                return "Book(s) bought successfully!";
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("Insufficient stock. Available stock: " + book.getStock());
+            return ("Insufficient stock. Available stock: " + book.getStock()).toString();
         }
+        return "";
     }
 
     private Book getBookFromResultSet(ResultSet resultSet) throws SQLException {
