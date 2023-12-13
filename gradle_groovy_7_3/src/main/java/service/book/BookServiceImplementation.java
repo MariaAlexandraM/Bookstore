@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-public class BookServiceImplementation implements BookService{
+public class BookServiceImplementation implements BookService {
 
     private final BookRepository bookRepository;
 
@@ -23,7 +23,7 @@ public class BookServiceImplementation implements BookService{
     @Override
     public Book findById(Long id) {
         return bookRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Book w id %d not found".formatted(id)));
+                .orElseThrow(() -> new IllegalArgumentException("Book with id = %d was not found".formatted(id)));
     }
 
     @Override
@@ -36,5 +36,25 @@ public class BookServiceImplementation implements BookService{
         Book book = this.findById(id);
         LocalDate now = LocalDate.now();
         return (int) ChronoUnit.YEARS.between(book.getPublishedDate(), now);
+    }
+
+    @Override
+    public void removeAll() {
+        bookRepository.removeAll();
+    }
+
+    @Override
+    public boolean updateBook(Book book) {
+        return bookRepository.updateBook(book);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        bookRepository.deleteById(id);
+    }
+
+    @Override
+    public String decreaseQty(Book book, int quantity) {
+        return bookRepository.decreaseQty(book, quantity);
     }
 }

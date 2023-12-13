@@ -11,9 +11,6 @@ public class BookBuilder {
         book = new Book(); // design pattern creational care se ocupa cu crearea obiectelor deci pot face asta
     }
 
-    /**
-     * Returnez this pt ca
-     * */
 
     public BookBuilder setId(Long id) {
         book.setId(id);
@@ -32,6 +29,16 @@ public class BookBuilder {
 
     public BookBuilder setPublishedDate(LocalDate publishedDate) {
         book.setPublishedDate(publishedDate);
+        return this;
+    }
+
+    public BookBuilder setStock(int stock) {
+        book.setStock(stock);
+        return this;
+    }
+
+    public BookBuilder setPrice(float price) {
+        book.setPrice(price);
         return this;
     }
 

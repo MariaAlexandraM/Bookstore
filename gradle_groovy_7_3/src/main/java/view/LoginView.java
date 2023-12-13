@@ -1,6 +1,7 @@
 package view;
 
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -33,11 +34,18 @@ public class LoginView {
         initializeGridPane(gridPane);
 
         Scene scene = new Scene(gridPane, 720, 480);
+
         primaryStage.setScene(scene);
 
         initializeSceneTitle(gridPane);
 
         initializeFields(gridPane);
+
+        // ca sa inchida toata aplicatia cand inchid fereastra de login
+        primaryStage.setOnCloseRequest(event -> {
+            System.out.println("Closing the application");
+            Platform.exit();
+        });
 
         primaryStage.show();
     }
@@ -68,6 +76,12 @@ public class LoginView {
         passwordField = new PasswordField();
         gridPane.add(passwordField, 1, 2);
 
+        logInButton = new Button("Log in");
+        HBox logInButtonHBox = new HBox(10);
+        logInButtonHBox.setAlignment(Pos.BOTTOM_LEFT);
+        logInButtonHBox.getChildren().add(logInButton);
+        gridPane.add(logInButtonHBox, 0, 4);
+
         signInButton = new Button("Sign in");
         // da o dimensiune prestabilita pt buron, hboxu
         HBox signInButtonHBox = new HBox(10);
@@ -75,11 +89,6 @@ public class LoginView {
         signInButtonHBox.getChildren().add(signInButton);
         gridPane.add(signInButtonHBox, 1, 4);
 
-        logInButton = new Button("Log in");
-        HBox logInButtonHBox = new HBox(10);
-        logInButtonHBox.setAlignment(Pos.BOTTOM_LEFT);
-        logInButtonHBox.getChildren().add(logInButton);
-        gridPane.add(logInButtonHBox, 0, 4);
 
         // textfield cu mesajele mele gen daca cv ii invalid sau daca loginu ii successful
         actiontarget = new Text();
@@ -95,7 +104,9 @@ public class LoginView {
         return passwordField.getText();
     }
 
-    public void setActionTargetText(String text){ this.actiontarget.setText(text);}
+    public void setActionTargetText(String text) {
+        this.actiontarget.setText(text);
+    }
 
     // design pattern OBSERVER aici
     // listenerii se fac in controller

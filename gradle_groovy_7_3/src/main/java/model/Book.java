@@ -13,6 +13,8 @@ public class Book {
     private String author;
     private String title;
     private LocalDate publishedDate;
+    private int stock;
+    private float price;
 
     public Long getId() {
         return id;
@@ -46,8 +48,24 @@ public class Book {
         this.publishedDate = publishedDate;
     }
 
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
     @Override
     public String toString() {
-        return String.format("Book author: %s | title: %s | published date: %s", author, title, publishedDate);
+        return String.format("Book author: %s | title: %s | published date: %s | stock: %s | price: %s", author, title, publishedDate, stock, price);
     }
 }

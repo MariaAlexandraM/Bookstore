@@ -27,7 +27,7 @@ public class BookRepositoryCacheDecorator extends BookRepositoryDecorator{
 
     @Override
     public Optional<Book> findById(Long id) {
-        return decoratedRepository.findById(id); // posibil sa fie gresit
+        return decoratedRepository.findById(id); // posibil sa fie gresit // TODO
     }
 
     @Override
@@ -42,5 +42,20 @@ public class BookRepositoryCacheDecorator extends BookRepositoryDecorator{
         cache.invalidateCache();
         decoratedRepository.removeAll();
 
+    }
+
+    @Override
+    public boolean updateBook(Book book) {
+        return false;
+    }
+
+    @Override
+    public void deleteById(Long id) {
+
+    }
+
+    @Override
+    public String decreaseQty(Book book, int quantity) {
+        return "";
     }
 }

@@ -1,5 +1,8 @@
 package database;
 
+import model.Role;
+import model.User;
+import model.builder.UserBuilder;
 import repository.security.RightsRolesRepository;
 import repository.security.RightsRolesRepositoryMySQL;
 
@@ -7,11 +10,12 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import static database.Constants.Rights.RIGHTS;
-import static database.Constants.Roles.ROLES;
+import static database.Constants.Roles.*;
 import static database.Constants.Schemas.SCHEMAS;
 import static database.Constants.getRolesRights;
 
@@ -126,8 +130,24 @@ public class Bootstrap {
         }
     }
 
-    // daca vreau sa pun niste users default, pt testare
+    // aici adaug admin sau alti useri default
     private static void bootstrapUserRoles() throws SQLException {
+//        for (String schema : SCHEMAS) {
+//            System.out.println("Creating admin user for " + schema);
+//
+//            JDBConnectionWrapper connectionWrapper = new JDBConnectionWrapper(schema);
+//            rightsRolesRepository = new RightsRolesRepositoryMySQL(connectionWrapper.getConnection());
+//
+//            Role adminRole = rightsRolesRepository.findRoleByTitle(ADMINISTRATOR);
+//
+//            User adminUser = new UserBuilder()
+//                    .setUsername("admin")
+//                    .setPassword("pass")
+//                    .setRoles(Collections.singletonList(adminRole))
+//                    .build();
+//
+//            rightsRolesRepository.addRolesToUser(adminUser, adminUser.getRoles());
+//        }
 
     }
 }

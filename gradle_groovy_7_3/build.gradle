@@ -28,3 +28,5 @@ test {
 
 //mainClassName = 'Main'
 mainClassName = 'launcher.Launcher'
+//mainClassName = 'view.AdminView'
+
