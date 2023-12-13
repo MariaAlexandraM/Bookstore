@@ -10,6 +10,7 @@ import repository.book.BookRepositoryMySQL;
 import service.book.BookService;
 import service.book.BookServiceImplementation;
 import service.user.AuthenticationService;
+import service.user.UserService;
 import view.*;
 
 import java.sql.Connection;
@@ -27,12 +28,14 @@ public class LoginController {
     // mereu service uri, nu repo! its all abt layers bby. ca shrek.
     private final AuthenticationService authenticationService;
     private final BookService bookService;
+    private final UserService userService;
 
 
-    public LoginController(LoginView loginView, AuthenticationService authenticationService, BookService bookService) {
+    public LoginController(LoginView loginView, AuthenticationService authenticationService, BookService bookService, UserService userService) {
         this.loginView = loginView;
         this.authenticationService = authenticationService;
         this.bookService = bookService;
+        this.userService = userService;
 
         this.loginView.addLoginButtonListener(new LoginButtonListener());
         this.loginView.addRegisterButtonListener(new RegisterButtonListener());
@@ -62,10 +65,7 @@ public class LoginController {
                     case ADMINISTRATOR:
                         System.out.println("Admin logged in!");
                         AdminView adminView = new AdminView();
-                        AdminController adminController = new AdminController(adminView, authenticationService);
-
-                        //BooksView booksView = new BooksView(bookService);
-                      //  BooksController booksController = new BooksController(booksView, bookService);
+                        AdminController adminController = new AdminController(adminView, authenticationService, bookService, userService);
                         break;
 
                     case EMPLOYEE:
@@ -77,15 +77,12 @@ public class LoginController {
                     case CUSTOMER:
                         System.out.println("Customer logged in!");
                         CustomerView customerView = new CustomerView();
-                        CustomerController customerController = new CustomerController(customerView, authenticationService);
+                        CustomerController customerController = new CustomerController(customerView, authenticationService, bookService);
 
-                        BooksView booksView = new BooksView(bookService);
-                        BooksController booksController = new BooksController(booksView, bookService);
+                        //BooksView booksView = new BooksView(bookService);
+                        //BooksController booksController = new BooksController(booksView, bookService);
                         break;
                 }
-
-
-                //adminView.show();
             }
         }
     }

@@ -1,5 +1,7 @@
 package view;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -41,7 +43,7 @@ public class AdminView {
     }
 
 
-    private void initializeSceneTitle(GridPane gridPane){
+    private void initializeSceneTitle(GridPane gridPane) {
         Text sceneTitle = new Text("Welcome, admin!");
         sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         gridPane.add(sceneTitle, 0, 0, 2, 1);
@@ -59,5 +61,13 @@ public class AdminView {
 
         gridPane.add(usersButton, 0, 1);
         gridPane.add(booksButton, 1, 1);
+    }
+
+    public void addUsersButtonListener(EventHandler<ActionEvent> usersButtonListener) {
+        usersButton.setOnAction(usersButtonListener);
+    }
+
+    public void addBooksButtonListener(EventHandler<ActionEvent> booksButtonListener) {
+        booksButton.setOnAction(booksButtonListener);
     }
 }

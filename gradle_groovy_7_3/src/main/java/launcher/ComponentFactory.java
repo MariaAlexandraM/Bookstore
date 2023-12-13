@@ -3,6 +3,7 @@ package launcher;
 import controller.LoginController;
 import database.DatabaseConnectionFactory;
 import javafx.stage.Stage;
+import model.User;
 import repository.book.BookRepository;
 import repository.book.BookRepositoryMySQL;
 import repository.security.RightsRolesRepository;
@@ -13,6 +14,8 @@ import service.book.BookService;
 import service.book.BookServiceImplementation;
 import service.user.AuthenticationService;
 import service.user.AuthenticationServiceImplementation;
+import service.user.UserService;
+import service.user.UserServiceImplementation;
 import view.LoginView;
 
 import java.sql.Connection;
@@ -23,6 +26,7 @@ public class ComponentFactory {
     private final AuthenticationService authenticationService;
     private final BookService bookService;
     private final UserRepository userRepository;
+    private final UserService userService;
     private final RightsRolesRepository rightsRolesRepository;
     private final BookRepository bookRepository; // !!!!! trb schimbat in interfata (1:52:40) // TODO Done
     private static volatile ComponentFactory instance; // tp tema 2
@@ -46,7 +50,8 @@ public class ComponentFactory {
         this.loginView = new LoginView(stage);
         this.bookRepository = new BookRepositoryMySQL(connection); // trb un book service, nu am voie sa apelez repo-u direct // TODO
         this.bookService = new BookServiceImplementation(bookRepository);
-        this.loginController = new LoginController(loginView, authenticationService, bookService);
+        this.userService = new UserServiceImplementation(userRepository);
+        this.loginController = new LoginController(loginView, authenticationService, bookService, userService);
     }
 
     public AuthenticationService getAuthenticationService() {

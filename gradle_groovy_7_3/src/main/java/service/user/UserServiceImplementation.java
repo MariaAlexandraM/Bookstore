@@ -4,9 +4,8 @@ import model.User;
 import repository.user.UserRepository;
 
 import java.util.List;
-import java.util.Optional;
 
-public class UserServiceImplementation implements UserSevice {
+public class UserServiceImplementation implements UserService {
     private final UserRepository userRepository;
     public UserServiceImplementation(UserRepository userRepository) {
         this.userRepository = userRepository;

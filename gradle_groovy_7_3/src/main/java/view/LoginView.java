@@ -1,6 +1,7 @@
 package view;
 
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -39,6 +40,12 @@ public class LoginView {
         initializeSceneTitle(gridPane);
 
         initializeFields(gridPane);
+
+        // ca sa inchida toata aplicatia cand inchid fereastra de login
+        primaryStage.setOnCloseRequest(event -> {
+            System.out.println("Closing the application");
+            Platform.exit();
+        });
 
         primaryStage.show();
     }
