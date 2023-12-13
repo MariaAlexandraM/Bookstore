@@ -45,11 +45,6 @@ public class UserRepositoryMySQL implements UserRepository {
         return users;
     }
 
-    // SQL Injection Attacks should not work after fixing functions
-    // Be careful that the last character in sql injection payload is an empty space
-    // alexandru.ghiurutan95@gmail.com' and 1=1; --
-    // ' or username LIKE '%admin%'; --
-
     @Override
     public Notification<User> findByUsernameAndPassword(String username, String password) {
         Notification<User> findByUsernameAndPasswordNotification = new Notification<>();
@@ -119,6 +114,63 @@ public class UserRepositoryMySQL implements UserRepository {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void deleteById(Long id) {
+        try {
+            String deleteSql = "delete from user where id = ?";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(deleteSql)) {
+                preparedStatement.setLong(1, id);
+                preparedStatement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public User findById(Long id) {
+        try {
+            String fetchUserSql = "select * from `" + USER + "` where `id` = ?";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(fetchUserSql)) {
+                preparedStatement.setLong(1, id);
+
+                ResultSet userResultSet = preparedStatement.executeQuery();
+                if (userResultSet.next()) {
+                    return getUserFromResultSet(userResultSet);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public boolean updateUser(User user) {
+        try {
+            String deleteRoles = "delete from user_role where user_id = ?";
+            PreparedStatement deleteRolesStatement = connection.prepareStatement(deleteRoles);
+            deleteRolesStatement.setLong(1, user.getId());
+            deleteRolesStatement.executeUpdate();
+
+            rightsRolesRepository.addRolesToUser(user, user.getRoles());
+
+            String updateUserSQL = "update user set username = ?, password = ? where id = ?";
+            PreparedStatement updateUserStatement = connection.prepareStatement(updateUserSQL);
+            updateUserStatement.setString(1, user.getUsername());
+            updateUserStatement.setString(2, user.getPassword());
+            updateUserStatement.setLong(3, user.getId());
+            int rows = updateUserStatement.executeUpdate();
+            return rows > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
 
     @Override
     public boolean existsByUsername(String email) {

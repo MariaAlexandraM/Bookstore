@@ -37,4 +37,19 @@ public class BookServiceImplementation implements BookService {
         LocalDate now = LocalDate.now();
         return (int) ChronoUnit.YEARS.between(book.getPublishedDate(), now);
     }
+
+    @Override
+    public void removeAll() {
+        bookRepository.removeAll();
+    }
+
+    @Override
+    public boolean updateBook(Book book) {
+        return bookRepository.updateBook(book);
+    }
+
+    @Override
+    public void decreaseQty(Book book, int quantity) {
+        bookRepository.decreaseQty(book, quantity);
+    }
 }

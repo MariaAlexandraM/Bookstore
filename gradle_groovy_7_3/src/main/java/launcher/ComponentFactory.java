@@ -9,6 +9,8 @@ import repository.security.RightsRolesRepository;
 import repository.security.RightsRolesRepositoryMySQL;
 import repository.user.UserRepository;
 import repository.user.UserRepositoryMySQL;
+import service.book.BookService;
+import service.book.BookServiceImplementation;
 import service.user.AuthenticationService;
 import service.user.AuthenticationServiceImplementation;
 import view.LoginView;
@@ -19,6 +21,7 @@ public class ComponentFactory {
     private final LoginView loginView;
     private final LoginController loginController;
     private final AuthenticationService authenticationService;
+    private final BookService bookService;
     private final UserRepository userRepository;
     private final RightsRolesRepository rightsRolesRepository;
     private final BookRepository bookRepository; // !!!!! trb schimbat in interfata (1:52:40) // TODO Done
@@ -41,8 +44,9 @@ public class ComponentFactory {
         this.userRepository = new UserRepositoryMySQL(connection, rightsRolesRepository);
         this.authenticationService = new AuthenticationServiceImplementation(userRepository, rightsRolesRepository);
         this.loginView = new LoginView(stage);
-        this.loginController = new LoginController(loginView, authenticationService);
         this.bookRepository = new BookRepositoryMySQL(connection); // trb un book service, nu am voie sa apelez repo-u direct // TODO
+        this.bookService = new BookServiceImplementation(bookRepository);
+        this.loginController = new LoginController(loginView, authenticationService, bookService);
     }
 
     public AuthenticationService getAuthenticationService() {

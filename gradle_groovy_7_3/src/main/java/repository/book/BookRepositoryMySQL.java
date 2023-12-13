@@ -85,6 +85,45 @@ public class BookRepositoryMySQL implements BookRepository{
         }
     }
 
+    @Override
+    public boolean updateBook(Book book) {
+        String sql = "update book set author = ?, title = ?, publishedDate = ?, stock = ?, price = ? where id = ?";
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, book.getAuthor());
+            preparedStatement.setString(2, book.getTitle());
+            preparedStatement.setDate(3, java.sql.Date.valueOf(book.getPublishedDate()));
+            preparedStatement.setInt(4, book.getStock());
+            preparedStatement.setFloat(5, book.getPrice());
+            preparedStatement.setLong(6, book.getId());
+
+            int rowsUpdated = preparedStatement.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public void decreaseQty(Book book, int quantity) {
+        if (book.getStock() >= quantity) {
+            // Sufficient stock, proceed with the purchase
+            String sql = "update book set stock = stock - ? where id = ?";
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setInt(1, quantity);
+                preparedStatement.setLong(2, book.getId());
+                preparedStatement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Insufficient stock. Available stock: " + book.getStock());
+        }
+    }
+
     private Book getBookFromResultSet(ResultSet resultSet) throws SQLException {
         return new BookBuilder()
                 .setId(resultSet.getLong("id"))
