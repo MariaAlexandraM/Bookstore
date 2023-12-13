@@ -65,6 +65,13 @@ public class BookRepositoryMySQL implements BookRepository{
             preparedStatement.setDate(3, java.sql.Date.valueOf(book.getPublishedDate()));
             preparedStatement.setInt(4, book.getStock());
             preparedStatement.setFloat(5, book.getPrice());
+
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                return true;
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -27,8 +27,9 @@ public class CRUDBooksView {
     private Stage stage;
     private TextField idTextField, authorTextField, titleTextField, stockTextField, priceTextField, dateTextField;
     private Button deleteBookButton, addBookButton;
-    private Button updateBookButton;
+    private Button updateBookButton, refresh;
     private Text actionTarget;
+    private TableView<Book> tableView;
 
     public CRUDBooksView(BookService bookService) {
         this.stage = new Stage();
@@ -42,7 +43,7 @@ public class CRUDBooksView {
 
         initializeFields(gridPane);
 
-        Scene scene = new Scene(gridPane, 1000, 600);
+        Scene scene = new Scene(gridPane, 1200, 600);
         stage.setScene(scene);
 
         stage.show();
@@ -57,7 +58,8 @@ public class CRUDBooksView {
 
     private TableView<Book> createBooksTable(List<Book> books) {
         TableView<Book> tableView = new TableView<>();
-        tableView.setMinWidth(900);
+
+        tableView.setMinWidth(1000);
         ObservableList<Book> data = FXCollections.observableArrayList(books);
 
         TableColumn<Book, Long> idColumn = new TableColumn<>("ID");
@@ -85,6 +87,8 @@ public class CRUDBooksView {
         tableView.getColumns().addAll(idColumn, authorColumn, titleColumn, publishedDateColumn, stockColumn, priceColumn);
 
         tableView.setItems(data);
+
+        this.tableView = tableView;
 
         return tableView;
     }
@@ -123,6 +127,9 @@ public class CRUDBooksView {
 
         addBookButton = new Button("Add book");
         gridPane.add(addBookButton, 7, 2);
+
+        refresh = new Button("Refresh");
+        gridPane.add(refresh, 0, 3);
 
         actionTarget = new Text();
         actionTarget.setFill(Color.FIREBRICK);
@@ -167,5 +174,17 @@ public class CRUDBooksView {
 
     public void addUpdateButtonListener(EventHandler<ActionEvent> updateButtonListener) {
         updateBookButton.setOnAction(updateButtonListener);
+    }
+
+    public void refreshButtonListener(EventHandler<ActionEvent> refreshButtonListener) {
+        refresh.setOnAction(refreshButtonListener);
+    }
+
+    public void clearBooksTable() {
+        tableView.getItems().clear();
+    }
+
+    public void populateBooksTable(List<Book> books) {
+        createBooksTable(books);
     }
 }
