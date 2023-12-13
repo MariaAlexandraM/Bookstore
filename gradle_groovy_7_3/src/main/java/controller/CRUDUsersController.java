@@ -33,7 +33,6 @@ public class CRUDUsersController {
         public void handle(ActionEvent event) {
             try {
                 Long id = Long.valueOf(CRUDusersView.getId());
-                //String role = CRUDusersView.getSelectedRole();
 
                 userService.findById(id);
                 try {
