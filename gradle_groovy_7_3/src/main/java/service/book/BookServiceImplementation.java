@@ -49,6 +49,11 @@ public class BookServiceImplementation implements BookService {
     }
 
     @Override
+    public void deleteById(Long id) {
+        bookRepository.deleteById(id);
+    }
+
+    @Override
     public String decreaseQty(Book book, int quantity) {
         return bookRepository.decreaseQty(book, quantity);
     }

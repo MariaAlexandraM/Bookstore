@@ -43,6 +43,11 @@ public class BookRepositoryMock implements BookRepository {
     }
 
     @Override
+    public void deleteById(Long id) {
+
+    }
+
+    @Override
     public String decreaseQty(Book book, int quantity) {
         return "";
     }

@@ -12,6 +12,7 @@ public interface BookService {
     int getAgeOfBook(Long id);
     void removeAll();
     boolean updateBook(Book book);
+    void deleteById(Long id);
     String decreaseQty(Book book, int quantity);
 
 

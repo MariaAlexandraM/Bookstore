@@ -16,9 +16,11 @@ import javafx.stage.Stage;
 public class AdminView {
     private Stage stage;
     private Button usersButton, booksButton;
+    private String username;
 
-    public AdminView() {
+    public AdminView(String user_name) {
         this.stage = new Stage();
+        this.username = user_name;
 
         stage.setTitle("Admin");
 
@@ -44,7 +46,7 @@ public class AdminView {
 
 
     private void initializeSceneTitle(GridPane gridPane) {
-        Text sceneTitle = new Text("Welcome, admin!");
+        Text sceneTitle = new Text("Welcome, " + username + "!");
         sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         gridPane.add(sceneTitle, 0, 0, 2, 1);
         GridPane.setHalignment(sceneTitle, javafx.geometry.HPos.CENTER); // centered the Welcome admin text

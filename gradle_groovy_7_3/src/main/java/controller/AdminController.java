@@ -8,10 +8,7 @@ import service.book.BookService;
 import service.user.AuthenticationService;
 import service.user.UserService;
 import service.user.UserServiceImplementation;
-import view.AdminView;
-import view.BooksView;
-import view.LoginView;
-import view.UsersView;
+import view.*;
 
 public class AdminController {
 
@@ -35,8 +32,8 @@ public class AdminController {
 
         @Override
         public void handle(ActionEvent event) {
-            BooksView booksView = new BooksView(bookService);
-            BooksController booksController = new BooksController(booksView, bookService);
+            CRUDBooksView CRUDbooksView = new CRUDBooksView(bookService);
+            CRUDBooksController CRUDbooksController = new CRUDBooksController(CRUDbooksView, bookService);
         }
     }
 
@@ -44,8 +41,8 @@ public class AdminController {
 
         @Override
         public void handle(ActionEvent event) {
-            UsersView usersView = new UsersView(userService);
-            UsersController usersController = new UsersController(usersView, userService);
+            CRUDUsersView CRUDusersView = new CRUDUsersView(userService);
+            CRUDUsersController CRUDusersController = new CRUDUsersController(CRUDusersView, userService);
         }
     }
 

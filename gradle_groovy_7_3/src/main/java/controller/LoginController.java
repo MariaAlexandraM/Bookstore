@@ -59,29 +59,26 @@ public class LoginController {
                 // acuma aici vreau sa deschid a new window cu functionalitati in functie de user role
 
                 User user = loginNotification.getResult(); // returneaza useru daca s-o autentificat cu succes, which it did
+                String user_name = user.getUsername();
                 List<Role> roles = user.getRoles(); // ia rolurile user-ului respectiv
                 String role = roles.get(0).getRole(); // pot avea mai multe, de ex si employee si customer
                 switch(role) {
                     case ADMINISTRATOR:
                         System.out.println("Admin logged in!");
-                        AdminView adminView = new AdminView();
+                        AdminView adminView = new AdminView(user_name);
                         AdminController adminController = new AdminController(adminView, authenticationService, bookService, userService);
                         break;
 
                     case EMPLOYEE:
                         System.out.println("Employee logged in!");
-                        EmployeeView employeeView = new EmployeeView();
-                        EmployeeController employeeController = new EmployeeController(employeeView, authenticationService);
+                        EmployeeView employeeView = new EmployeeView(user_name);
+                        EmployeeController employeeController = new EmployeeController(employeeView, bookService);
                         break;
 
                     case CUSTOMER:
                         System.out.println("Customer logged in!");
-                        String user_name = user.getUsername();
                         CustomerView customerView = new CustomerView(user_name);
-                        CustomerController customerController = new CustomerController(customerView, authenticationService, bookService);
-
-                        //BooksView booksView = new BooksView(bookService);
-                        //BooksController booksController = new BooksController(booksView, bookService);
+                        CustomerController customerController = new CustomerController(customerView, bookService);
                         break;
                 }
             }

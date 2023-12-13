@@ -10,13 +10,11 @@ import view.CustomerView;
 
 public class CustomerController {
     private final CustomerView customerView;
-    private final AuthenticationService authenticationService;
     private final BookService bookService;
 
 
-    public CustomerController(CustomerView customerView, AuthenticationService authenticationService, BookService bookService) {
+    public CustomerController(CustomerView customerView, BookService bookService) {
         this.customerView = customerView;
-        this.authenticationService = authenticationService;
         this.bookService = bookService;
 
         this.customerView.addBooksButtonListener(new BooksButtonListener());

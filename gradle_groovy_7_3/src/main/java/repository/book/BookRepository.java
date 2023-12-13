@@ -12,5 +12,6 @@ public interface BookRepository {
     boolean save(Book book);
     void removeAll();
     boolean updateBook(Book book);
+    void deleteById(Long id);
     String decreaseQty(Book book, int quantity);
 }

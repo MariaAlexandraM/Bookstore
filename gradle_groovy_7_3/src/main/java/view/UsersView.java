@@ -45,6 +45,7 @@ public class UsersView {
     private TableView<User> createUsersTable(List<User> users) {
         TableView<User> tableView = new TableView<>();
         ObservableList<User> data = FXCollections.observableArrayList(users);
+        tableView.setMinWidth(700);
 
         TableColumn<User, Long> idColumn = new TableColumn<>("ID");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -56,6 +57,7 @@ public class UsersView {
         passwordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
 
         TableColumn<User, String> roleColumn = getUserStringTableColumn();
+
         tableView.getColumns().addAll(idColumn, usernameColumn, passwordColumn, roleColumn);
 
         tableView.setItems(data);

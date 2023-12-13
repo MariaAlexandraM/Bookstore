@@ -29,4 +29,24 @@ public class UserServiceImplementation implements UserService {
     public boolean save(User user) {
         return userRepository.save(user);
     }
+
+    @Override
+    public void removeAll() {
+        userRepository.removeAll();
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean updateUser(User user) {
+        return userRepository.updateUser(user);
+    }
+
+    @Override
+    public boolean existsByUsername(String email) {
+        return false;
+    }
 }
