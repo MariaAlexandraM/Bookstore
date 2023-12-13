@@ -1,4 +1,4 @@
-package service;
+package service.book;
 
 import model.Book;
 
@@ -10,5 +10,10 @@ public interface BookService {
     Book findById(Long id);
     boolean save(Book book);
     int getAgeOfBook(Long id);
+    void removeAll();
+    boolean updateBook(Book book);
+    void deleteById(Long id);
+    String decreaseQty(Book book, int quantity);
+
 
 }

@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class BookRepoMock implements BookRepository {
+public class BookRepositoryMock implements BookRepository {
 
     private final List<Book> books;
 
-    public BookRepoMock() {
+    public BookRepositoryMock() {
         books = new ArrayList<>();
     }
 
@@ -35,5 +35,20 @@ public class BookRepoMock implements BookRepository {
     @Override
     public void removeAll() {
         books.clear();
+    }
+
+    @Override
+    public boolean updateBook(Book book) {
+        return false;
+    }
+
+    @Override
+    public void deleteById(Long id) {
+
+    }
+
+    @Override
+    public String decreaseQty(Book book, int quantity) {
+        return "";
     }
 }
